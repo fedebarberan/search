@@ -1,0 +1,428 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    transition: background 0.6s, color 0.6s;
+}
+.dark-mode {
+    background-color: #181818;
+    color: #fff;
+}
+.light-mode {
+    background-color: #f5f5f5;
+    color: #000;
+}
+textarea {
+    width: 60%;
+    min-height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.6s, color 0.6s;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.dark-mode textarea {
+    background-color: #242424;
+    color: #fff;
+}
+.light-mode textarea {
+    background-color: #fff;
+    color: #000;
+}
+.button-container {
+    margin-top: 20px;
+    width: 832px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    height: 42px;
+}
+.button-row.hidden {
+    display: none;
+}
+.button-row label {
+    width: 80px;
+    text-align: right;
+    padding-right: 10px;
+    font-weight: bold;
+    color: #ccc;
+}
+.button-group {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    min-height: 34px;
+    height: 34px;
+}
+button {
+    flex: 1;
+    margin: 0 2px;
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+    background-color: #444444; /* Default, updated by JS */
+    color: #fff;
+    text-align: center;
+    position: relative;
+    min-width: 0;
+    width: calc((832px - 80px - 10px - 10px) / 6);
+    height: 34px;
+}
+.dark-mode button {
+    background-color: #333;
+    color: #ddd;
+}
+.light-mode button {
+    background-color: #ddd;
+    color: #000;
+}
+button.hidden {
+    display: none;
+}
+button:active {
+    transform: scale(0.95);
+}
+button.logo-visible:hover {
+    /* No enlargement, only logo and background changes */
+}
+button:not(.logo-visible):hover {
+    transform: none;
+}
+button.logo-visible[data-platform="youtube"]:hover,
+button.logo-visible[data-platform="netflix"]:hover,
+button.logo-visible[data-platform="twitch"]:hover,
+button.logo-visible[data-platform="gemini"]:hover,
+button.logo-visible[data-platform="ted"]:hover,
+button.logo-visible[data-platform="quora"]:hover,
+button.logo-visible[data-platform="maps"]:hover,
+button.logo-visible[data-platform="4chan"]:hover,
+button.logo-visible[data-platform="stackoverflow"]:hover,
+button.logo-visible[data-platform="reddit"]:hover,
+button.logo-visible[data-platform="discord"]:hover {
+    background-color: #000000;
+}
+.icon-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.icon-container span {
+    font-size: 24px;
+    cursor: pointer;
+    color: #777;
+    transition: transform 0.2s, color 0.2s;
+    position: relative;
+}
+.icon-container span:hover {
+    transform: scale(1.2);
+    color: #aaa;
+}
+.icon-container span:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ffff99;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+button[data-platform="google"]:hover { background-color: #4285f4; }
+button[data-platform="youtube"]:hover { background-color: #ff0000; }
+button[data-platform="wikipedia"]:hover { background-color: #4a4a4a; }
+button[data-platform="spotify"]:hover { background-color: #1ed760; }
+button[data-platform="netflix"]:hover { background-color: #e50914; }
+button[data-platform="maps"]:hover { background-color: #34a853; }
+button[data-platform="chatgpt"]:hover { background-color: #10a37f; }
+button[data-platform="grok"]:hover { background-color: #000000; }
+button[data-platform="gemini"]:hover { background-color: #4285f4; }
+button[data-platform="copilot"]:hover { background-color: #0078d4; }
+button[data-platform="claude"]:hover { background-color: #ff6f61; }
+button[data-platform="perplexity"]:hover { background-color: #ff6f00; }
+button[data-platform="amazon"]:hover { background-color: #ff9900; }
+button[data-platform="ebay"]:hover { background-color: #e53238; }
+button[data-platform="alibaba"]:hover { background-color: #ff6a00; }
+button[data-platform="walmart"]:hover { background-color: #0071ce; }
+button[data-platform="mercadolibre"]:hover { background-color: #ccac00; }
+button[data-platform="etsy"]:hover { background-color: #f56400; }
+button[data-platform="x"]:hover { background-color: #000000; }
+button[data-platform="facebook"]:hover { background-color: #1877f2; }
+button[data-platform="tiktok"]:hover { background-color: #010101; }
+button[data-platform="twitch"]:hover { background-color: #9146ff; }
+button[data-platform="linkedin"]:hover { background-color: #0a66c2; }
+button[data-platform="instagram"]:hover { background-color: #e1306c; }
+button[data-platform="reddit"]:hover { background-color: #ff4500; }
+button[data-platform="stackoverflow"]:hover { background-color: #f48024; }
+button[data-platform="discord"]:hover { background-color: #5865f2; }
+button[data-platform="4chan"]:hover { background-color: #8e929e; }
+button[data-platform="quora"]:hover { background-color: #b92b27; }
+button[data-platform="ted"]:hover { background-color: #e62b1e; }
+button[data-platform^="promoted-"]:hover { background-color: #ffff00; color: #000; font-weight: bold; }
+button.logo-visible:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+button.logo-visible:hover span {
+    visibility: hidden;
+}
+button[data-platform="google"].logo-visible:hover::after { background-image: url('https://www.google.com/favicon.ico'); }
+button[data-platform="youtube"].logo-visible:hover::after { background-image: url('https://www.youtube.com/favicon.ico'); }
+button[data-platform="wikipedia"].logo-visible:hover::after { background-image: url('https://en.wikipedia.org/favicon.ico'); }
+button[data-platform="spotify"].logo-visible:hover::after { background-image: url('https://www.spotify.com/favicon.ico'); }
+button[data-platform="netflix"].logo-visible:hover::after { background-image: url('https://www.netflix.com/favicon.ico'); }
+button[data-platform="maps"].logo-visible:hover::after { background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg'); }
+button[data-platform="chatgpt"].logo-visible:hover::after { background-image: url('https://chat.openai.com/favicon.ico'); }
+button[data-platform="grok"].logo-visible:hover::after { background-image: url('https://x.ai/favicon.ico'); }
+button[data-platform="gemini"].logo-visible:hover::after { background-image: url('https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-gemini-icon.png'); }
+button[data-platform="copilot"].logo-visible:hover::after { background-image: url('https://copilot.microsoft.com/favicon.ico'); }
+button[data-platform="claude"].logo-visible:hover::after { background-image: url('https://anthropic.com/favicon.ico'); }
+button[data-platform="perplexity"].logo-visible:hover::after { background-image: url('https://www.perplexity.ai/favicon.ico'); }
+button[data-platform="amazon"].logo-visible:hover::after { background-image: url('https://www.amazon.com/favicon.ico'); }
+button[data-platform="ebay"].logo-visible:hover::after { background-image: url('https://www.ebay.com/favicon.ico'); }
+button[data-platform="alibaba"].logo-visible:hover::after { background-image: url('https://www.alibaba.com/favicon.ico'); }
+button[data-platform="walmart"].logo-visible:hover::after { background-image: url('https://www.walmart.com/favicon.ico'); }
+button[data-platform="mercadolibre"].logo-visible:hover::after { background-image: url('https://companieslogo.com/img/orig/MELI-dc8392a9.svg'); width: 32px; height: 32px; }
+button[data-platform="etsy"].logo-visible:hover::after { background-image: url('https://www.etsy.com/favicon.ico'); }
+button[data-platform="x"].logo-visible:hover::after { background-image: url('https://x.com/favicon.ico'); }
+button[data-platform="facebook"].logo-visible:hover::after { background-image: url('https://www.facebook.com/favicon.ico'); }
+button[data-platform="tiktok"].logo-visible:hover::after { background-image: url('https://www.tiktok.com/favicon.ico'); }
+button[data-platform="twitch"].logo-visible:hover::after { background-image: url('https://www.twitch.tv/favicon.ico'); }
+button[data-platform="linkedin"].logo-visible:hover::after { background-image: url('https://www.linkedin.com/favicon.ico'); }
+button[data-platform="instagram"].logo-visible:hover::after { background-image: url('https://www.instagram.com/static/images/ico/favicon.ico/36b3ee2d91ed.ico'); }
+button[data-platform="reddit"].logo-visible:hover::after { background-image: url('https://www.reddit.com/favicon.ico'); }
+button[data-platform="stackoverflow"].logo-visible:hover::after { background-image: url('https://stackoverflow.com/favicon.ico'); }
+button[data-platform="discord"].logo-visible:hover::after { background-image: url('https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d80db9971f10a9757c99_Symbol.svg'); }
+button[data-platform="4chan"].logo-visible:hover::after { background-image: url('https://www.4chan.org/favicon.ico'); }
+button[data-platform="quora"].logo-visible:hover::after { background-image: url('https://www.quora.com/favicon.ico'); }
+button[data-platform="ted"].logo-visible:hover::after { background-image: url('https://www.ted.com/favicon.ico'); }
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+}
+.dark-mode .modal-content {
+    background-color: #242424;
+    color: #fff;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #999;
+    border-radius: 20px;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #2196F3;
+}
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+button#reset-usage {
+    padding: 5px 10px;
+    background-color: #888;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    line-height: 1.4;
+    white-space: nowrap;
+    max-width: 150px;
+}
+button#reset-usage:hover {
+    background-color: #666;
+}
+button#reset-usage:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+.modal-section {
+    flex: 1;
+    padding-right: 5px;
+}
+.modal-section:not(.sites-column):not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.dark-mode .modal-section:not(.sites-column):not(:last-child) {
+    border-right: 1px solid #555;
+}
+.modal-section h4 {
+    margin-top: 0;
+}
+.modal-section label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.sites-column {
+    flex: 1;
+    padding-top: 20px;
+}
+.no-rows-message {
+    display: none;
+    margin-top: 20px;
+    color: #888;
+}
+.feedback-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 500px;
+    text-align: left;
+    position: relative;
+}
+.dark-mode .feedback-modal-content {
+    background-color: #242424;
+    color: #fff;
+}
+.feedback-modal-content input[type="text"],
+.feedback-modal-content textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.feedback-modal-content textarea:not(#add-site-input) {
+    height: 7em;
+}
+.dark-mode .feedback-modal-content input[type="text"],
+.dark-mode .feedback-modal-content textarea {
+    border-color: #555;
+    background-color: #333;
+    color: #fff;
+}
+.feedback-modal-content button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.feedback-modal-content button:hover {
+    background-color: #1976D2;
+}
+.feedback-modal-content button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+.two-line-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+.sites-column h5 {
+    margin: 15px 0 10px;
+    font-size: 14px;
+    color: #888;
+}
+.dark-mode .sites-column h5 {
+    color: #bbb;
+}
+.color-picker-modal {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+.dark-mode .color-picker-modal {
+    background-color: #242424;
+    color: #fff;
+}
+.color-picker-modal input[type="color"] {
+    width: 100px;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+/* Dynamic theme color class */
+.theme-color {
+    background-color: #444444; /* Default, updated by JS */
+}

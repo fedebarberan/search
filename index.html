@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*.com https://*.org https://*.ai https://*.tv https://*.svg; style-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+    <div class="icon-container">
+        <span id="settings-icon" data-tooltip="Settings">⚙️</span>
+        <span id="theme-icon" data-tooltip="Toggle Dark/Light">🌙</span>
+        <span id="color-icon" data-tooltip="Change Theme Color">🎨</span>
+        <span id="bug-icon" data-tooltip="Report a Bug">🐞</span>
+        <span id="suggestion-icon" data-tooltip="Send a Suggestion">💡</span>
+        <span id="add-site-icon" data-tooltip="Request to Add a Site">➕</span>
+    </div>
+    <textarea id="query" placeholder="Search or ask here and click any site below" rows="2"></textarea>
+    <div class="button-container">
+        <div class="button-row" data-row="general">
+            <label>General</label>
+            <div class="button-group">
+                <button data-platform="google"><span>Google</span></button>
+                <button data-platform="youtube"><span>YouTube</span></button>
+                <button data-platform="wikipedia"><span>Wikipedia</span></button>
+                <button data-platform="spotify"><span>Spotify</span></button>
+                <button data-platform="netflix"><span>Netflix</span></button>
+                <button data-platform="maps"><span>Maps</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="ai">
+            <label>AI</label>
+            <div class="button-group">
+                <button data-platform="grok"><span>Grok</span></button>
+                <button data-platform="chatgpt"><span>ChatGPT</span></button>
+                <button data-platform="gemini"><span>Gemini</span></button>
+                <button data-platform="copilot"><span>Copilot</span></button>
+                <button data-platform="claude"><span>Claude</span></button>
+                <button data-platform="perplexity"><span>Perplexity</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="buy">
+            <label>Buy</label>
+            <div class="button-group">
+                <button data-platform="amazon"><span>Amazon</span></button>
+                <button data-platform="ebay"><span>eBay</span></button>
+                <button data-platform="alibaba"><span>Alibaba</span></button>
+                <button data-platform="walmart"><span>Walmart</span></button>
+                <button data-platform="mercadolibre"><span>Mercado Libre</span></button>
+                <button data-platform="etsy"><span>Etsy</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="social">
+            <label>Social</label>
+            <div class="button-group">
+                <button data-platform="x"><span>X</span></button>
+                <button data-platform="facebook"><span>Facebook</span></button>
+                <button data-platform="tiktok"><span>TikTok</span></button>
+                <button data-platform="twitch"><span>Twitch</span></button>
+                <button data-platform="linkedin"><span>LinkedIn</span></button>
+                <button data-platform="instagram"><span>Instagram</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="forum">
+            <label>Forum</label>
+            <div class="button-group">
+                <button data-platform="reddit"><span>Reddit</span></button>
+                <button data-platform="stackoverflow"><span>Stack Overflow</span></button>
+                <button data-platform="discord"><span>Discord</span></button>
+                <button data-platform="4chan"><span>4chan</span></button>
+                <button data-platform="quora"><span>Quora</span></button>
+                <button data-platform="ted"><span>TED</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="promoted">
+            <label>Promoted</label>
+            <div class="button-group">
+                <button data-platform="promoted-1"><span>Free</span></button>
+                <button data-platform="promoted-2"><span>Free</span></button>
+                <button data-platform="promoted-3"><span>Free</span></button>
+                <button data-platform="promoted-4"><span>Free</span></button>
+                <button data-platform="promoted-5"><span>Free</span></button>
+                <button data-platform="promoted-6"><span>Free</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="no-rows-message">Go to settings to enable some action buttons.</div>
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <div class="modal-section">
+                <h4>General Settings</h4>
+                <label>
+                    <span class="switch"><input type="checkbox" id="sort-by-usage"><span class="slider"></span></span>
+                    <span class="two-line-label">Most visited<br>sites first</span>
+                </label>
+                <button id="reset-usage">Reset visited sites</button>
+                <hr>
+                <label>
+                    <span class="switch"><input type="checkbox" id="logo-on-hover"><span class="slider"></span></span>
+                    <span class="two-line-label">Show logo on<br>mouse over</span>
+                </label>
+                <label>
+                    <span class="switch"><input type="checkbox" id="new-tab"><span class="slider"></span></span>
+                    <span class="two-line-label">Open results in<br>new tab</span>
+                </label>
+            </div>
+            <div class="modal-section">
+                <h4>Rows</h4>
+                <label data-row="general">
+                    <span class="switch"><input type="checkbox" id="hide-general" checked><span class="slider"></span></span>
+                    General
+                </label>
+                <label data-row="ai">
+                    <span class="switch"><input type="checkbox" id="hide-ai" checked><span class="slider"></span></span>
+                    AI
+                </label>
+                <label data-row="buy">
+                    <span class="switch"><input type="checkbox" id="hide-buy" checked><span class="slider"></span></span>
+                    Buy
+                </label>
+                <label data-row="social">
+                    <span class="switch"><input type="checkbox" id="hide-social" checked><span class="slider"></span></span>
+                    Social
+                </label>
+                <label data-row="forum">
+                    <span class="switch"><input type="checkbox" id="hide-forum" checked><span class="slider"></span></span>
+                    Forum
+                </label>
+            </div>
+            <div class="modal-section sites-column">
+                <h4>Sites</h4>
+                <h5>General</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-google" checked><span class="slider"></span></span> Google</label>
+                <label><span class="switch"><input type="checkbox" id="hide-youtube" checked><span class="slider"></span></span> YouTube</label>
+                <label><span class="switch"><input type="checkbox" id="hide-wikipedia" checked><span class="slider"></span></span> Wikipedia</label>
+                <label><span class="switch"><input type="checkbox" id="hide-spotify" checked><span class="slider"></span></span> Spotify</label>
+                <label><span class="switch"><input type="checkbox" id="hide-netflix" checked><span class="slider"></span></span> Netflix</label>
+                <label><span class="switch"><input type="checkbox" id="hide-maps" checked><span class="slider"></span></span> Maps</label>
+                <h5>AI</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-grok" checked><span class="slider"></span></span> Grok</label>
+                <label><span class="switch"><input type="checkbox" id="hide-chatgpt" checked><span class="slider"></span></span> ChatGPT</label>
+                <label><span class="switch"><input type="checkbox" id="hide-gemini" checked><span class="slider"></span></span> Gemini</label>
+                <label><span class="switch"><input type="checkbox" id="hide-copilot" checked><span class="slider"></span></span> Copilot</label>
+            </div>
+            <div class="modal-section sites-column">
+                <h5>AI (continued)</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-claude" checked><span class="slider"></span></span> Claude</label>
+                <label><span class="switch"><input type="checkbox" id="hide-perplexity" checked><span class="slider"></span></span> Perplexity</label>
+                <h5>Buy</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-amazon" checked><span class="slider"></span></span> Amazon</label>
+                <label><span class="switch"><input type="checkbox" id="hide-ebay" checked><span class="slider"></span></span> eBay</label>
+                <label><span class="switch"><input type="checkbox" id="hide-alibaba" checked><span class="slider"></span></span> Alibaba</label>
+                <label><span class="switch"><input type="checkbox" id="hide-walmart" checked><span class="slider"></span></span> Walmart</label>
+                <label><span class="switch"><input type="checkbox" id="hide-mercadolibre" checked><span class="slider"></span></span> Mercado Libre</label>
+                <label><span class="switch"><input type="checkbox" id="hide-etsy" checked><span class="slider"></span></span> Etsy</label>
+                <h5>Social</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-x" checked><span class="slider"></span></span> X</label>
+                <label><span class="switch"><input type="checkbox" id="hide-facebook" checked><span class="slider"></span></span> Facebook</label>
+            </div>
+            <div class="modal-section sites-column">
+                <h5>Social (continued)</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-tiktok" checked><span class="slider"></span></span> TikTok</label>
+                <label><span class="switch"><input type="checkbox" id="hide-twitch" checked><span class="slider"></span></span> Twitch</label>
+                <label><span class="switch"><input type="checkbox" id="hide-linkedin" checked><span class="slider"></span></span> LinkedIn</label>
+                <label><span class="switch"><input type="checkbox" id="hide-instagram" checked><span class="slider"></span></span> Instagram</label>
+                <h5>Forum</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-reddit" checked><span class="slider"></span></span> Reddit</label>
+                <label><span class="switch"><input type="checkbox" id="hide-stackoverflow" checked><span class="slider"></span></span> Stack Overflow</label>
+                <label><span class="switch"><input type="checkbox" id="hide-discord" checked><span class="slider"></span></span> Discord</label>
+                <label><span class="switch"><input type="checkbox" id="hide-4chan" checked><span class="slider"></span></span> 4chan</label>
+                <label><span class="switch"><input type="checkbox" id="hide-quora" checked><span class="slider"></span></span> Quora</label>
+                <label><span class="switch"><input type="checkbox" id="hide-ted" checked><span class="slider"></span></span> TED</label>
+            </div>
+        </div>
+    </div>
+    <div id="bug-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <h3>Report a Bug</h3>
+            <textarea maxlength="200" placeholder="Describe the bug (max 200 characters)..."></textarea>
+            <button id="submit-bug">Submit</button>
+        </div>
+    </div>
+    <div id="suggestion-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <h3>Send a Suggestion</h3>
+            <textarea maxlength="200" placeholder="Your suggestion (max 200 characters)..."></textarea>
+            <button id="submit-suggestion">Submit</button>
+        </div>
+    </div>
+    <div id="add-site-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <h3>Request to Add a Site</h3>
+            <input type="text" id="add-site-input" maxlength="70" value="http://" placeholder="Enter site URL (max 70 characters)">
+            <button id="submit-add-site">Submit</button>
+        </div>
+    </div>
+    <div id="promote-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <h3>Ask Your Site to Be Promoted</h3>
+            <textarea maxlength="200" placeholder="Enter site details (max 200 characters)..."></textarea>
+            <button id="submit-promote">Submit</button>
+        </div>
+    </div>
+    <div id="color-modal" class="modal">
+        <div class="color-picker-modal">
+            <span class="close">×</span>
+            <h3>Pick Theme Color</h3>
+            <input type="color" id="color-picker" value="#444444">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
