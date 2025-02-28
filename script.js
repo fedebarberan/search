@@ -106,7 +106,12 @@ colorIcon.addEventListener('click', () => colorModal.style.display = 'block');
 colorCloseBtn.addEventListener('click', () => colorModal.style.display = 'none');
 window.addEventListener('click', (e) => { if (e.target === colorModal) colorModal.style.display = 'none'; });
 
+// Theme color management
+let themeStyle = document.createElement('style');
+document.head.appendChild(themeStyle);
+
 colorPicker.addEventListener('input', () => {
+    console.log('Color changed to:', colorPicker.value);
     localStorage.setItem('themeColor', colorPicker.value);
     applyThemeColor();
 });
@@ -141,12 +146,15 @@ function saveSubmissionTimestamps() {
 
 function applyThemeColor() {
     const themeColor = localStorage.getItem('themeColor') || '#444444';
-    const styleSheet = document.styleSheets[0];
-    const ruleIndex = Array.from(styleSheet.cssRules).findIndex(rule => rule.selectorText === '.theme-color');
-    if (ruleIndex !== -1) styleSheet.deleteRule(ruleIndex);
-    styleSheet.insertRule(`.theme-color { background-color: ${themeColor}; }`, styleSheet.cssRules.length);
-    document.querySelectorAll('button:not(.light-mode):not(.dark-mode)').forEach(button => {
-        button.classList.add('theme-color');
+    themeStyle.textContent = `
+        button.theme-color:not(.light-mode):not(.dark-mode) {
+            background-color: ${themeColor} !important;
+        }
+    `;
+    document.querySelectorAll('button').forEach(button => {
+        if (!button.classList.contains('light-mode') && !button.classList.contains('dark-mode')) {
+            button.classList.add('theme-color');
+        }
     });
     colorPicker.value = themeColor;
 }
@@ -235,11 +243,11 @@ resetUsageBtn.addEventListener('click', () => {
 
 function sanitizeInput(input) {
     return input.replace(/[<>&"']/g, match => ({
-        '<': '&lt;',
-        '>': '&gt;',
-        '&': '&amp;',
-        '"': '&quot;',
-        "'": '&#x27;'
+        '<': '<',
+        '>': '>',
+        '&': '&',
+        '"': '"',
+        "'": '''
     }[match])).replace(/script/gi, '');
 }
 
@@ -372,3 +380,4 @@ document.getElementById('add-site-input').addEventListener('input', function(e) 
 });
 
 applySettings();
+applyThemeColor();
