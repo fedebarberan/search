@@ -1,4 +1,4 @@
-// Version 2.9 - Split from script.js, fixed SHA-256 dependency, added cookie consent, AdSense push, and language modal
+// Version 2.10 - Fixed promote modal trigger, aligned with latest updates
 document.addEventListener('DOMContentLoaded', () => {
     const faviconUrls = {
         'google': 'https://www.google.com/favicon.ico',
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleModal('bug-modal', 'bug-icon', 'close');
     toggleModal('suggestion-modal', 'suggestion-icon', 'close');
     toggleModal('add-site-modal', 'add-site-icon', 'close');
-    toggleModal('promote-modal', 'submit-promote', 'close');
+    toggleModal('promote-modal', 'promote-icon', 'close'); // Fixed trigger from 'submit-promote' to 'promote-icon'
     toggleModal('language-modal', 'language-icon', 'close');
 
     document.querySelectorAll('button[data-platform^="promoted-"]').forEach(button => {

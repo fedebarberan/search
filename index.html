@@ -1,4 +1,4 @@
-<!-- Version 1.1 - Fixed duplicated labels in settings modal, added language support -->
+<!-- Version 1.3 - Removed reCAPTCHA site key and elements -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +183,6 @@
                 <input type="hidden" name="type" value="bug">
                 <textarea id="bug-message" name="message" maxlength="200" placeholder="Describe the bug..."></textarea>
                 <div id="bug-counter" class="char-counter">200/200</div>
-                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
                 <button id="submit-bug" type="submit">Submit</button>
             </form>
         </div>
@@ -196,7 +195,6 @@
                 <input type="hidden" name="type" value="suggestion">
                 <textarea id="suggestion-message" name="message" maxlength="200" placeholder="Your suggestion..."></textarea>
                 <div id="suggestion-counter" class="char-counter">200/200</div>
-                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
                 <button id="submit-suggestion" type="submit">Submit</button>
             </form>
         </div>
@@ -209,7 +207,6 @@
                 <input type="hidden" name="type" value="add-site">
                 <input type="text" id="add-site-input" name="url" maxlength="70" placeholder="http://">
                 <div id="add-site-counter" class="char-counter">70/70</div>
-                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
                 <button id="submit-add-site" type="submit">Submit</button>
             </form>
         </div>
@@ -222,7 +219,6 @@
                 <input type="hidden" name="type" value="promote">
                 <textarea id="promote-message" name="message" maxlength="200" placeholder="Your message here"></textarea>
                 <div id="promote-counter" class="char-counter">200/200</div>
-                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
                 <button id="submit-promote" type="submit">Submit</button>
             </form>
         </div>
@@ -255,7 +251,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="core.js"></script>
     <script src="settings.js"></script>

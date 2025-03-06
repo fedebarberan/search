@@ -1,4 +1,4 @@
-/* Version 3.2 - Fixed settings modal label overlap, adjusted language modal title positioning */
+/* Version 3.3 - Fixed settings modal label overlap, adjusted language modal title */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -316,7 +316,7 @@ button[data-platform="ted"].logo-visible:hover::after { background-image: url('h
 .language-modal-content {
     max-width: 600px;
     text-align: center;
-    display: block; /* Changed from flex to block for proper title positioning */
+    display: block;
 }
 .language-modal-content h4 {
     margin: 0 0 20px 0;
@@ -326,6 +326,7 @@ button[data-platform="ted"].logo-visible:hover::after { background-image: url('h
     top: 0;
     background: inherit;
     padding: 10px 0;
+    z-index: 1;
 }
 .close {
     position: absolute;
@@ -411,21 +412,12 @@ button#reset-usage:disabled {
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
-    position: relative;
-}
-.modal-section label span:not(.slider) {
-    flex: 1;
-    margin-left: 10px;
 }
 .switch-row {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
-}
-.row-label {
-    flex: 1;
-    margin-left: 10px;
 }
 .sites-column {
     flex: 1;
