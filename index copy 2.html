@@ -1,4 +1,3 @@
-<!-- Version 1.1 - Fixed duplicated labels in settings modal, added language support -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +22,9 @@
         <button id="bug-icon" data-tooltip="Report Bug">🐞</button>
         <button id="suggestion-icon" data-tooltip="Suggest Feature">💡</button>
         <button id="add-site-icon" data-tooltip="Add Site">➕</button>
-        <button id="language-icon" data-tooltip="Language">🔠</button>
     </div>
     <div class="ad-container top-ad">
+        <!-- Google AdSense Top Ad -->
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <ins class="adsbygoogle"
              style="display:inline-block;width:728px;height:90px"
@@ -97,18 +96,19 @@
                 <button data-platform="promoted-available3">Available</button>
                 <button data-platform="promoted-available4">Available</button>
                 <button data-platform="promoted-available5">Available</button>
-                <button data-platform="promoted-available6">Available</button>
             </div>
         </div>
     </div>
     <div class="no-rows-message">All rows are hidden. Adjust settings to show them.</div>
     <div class="ad-container mid-ad">
+        <!-- Google AdSense Mid Ad -->
         <ins class="adsbygoogle"
              style="display:inline-block;width:728px;height:90px"
              data-ad-client="your-ad-client-id"
              data-ad-slot="your-mid-ad-slot-id"></ins>
     </div>
     <div class="ad-container bottom-ad">
+        <!-- Google AdSense Bottom Ad -->
         <ins class="adsbygoogle"
              style="display:inline-block;width:728px;height:90px"
              data-ad-client="your-ad-client-id"
@@ -120,58 +120,57 @@
         <div class="modal-content">
             <span class="close">×</span>
             <div class="modal-section">
-                <h4>General Settings</h4>
-                <label><div class="switch"><input type="checkbox" id="sort-by-usage"><span class="slider"></span></div><span>Most visited sites first</span></label>
-                <button id="reset-usage">Reset visited sites</button>
-                <hr class="separator">
-                <label><div class="switch"><input type="checkbox" id="logo-on-hover"><span class="slider"></span></div><span>Show logo on mouse over</span></label>
-                <label><div class="switch"><input type="checkbox" id="new-tab"><span class="slider"></span></div><span>Open results in new tab</span></label>
+                <h4>Preferences</h4>
+                <label><span>Sort by Usage</span><div class="switch"><input type="checkbox" id="sort-by-usage"><span class="slider"></span></div></label>
+                <button id="reset-usage">Reset Usage</button>
+                <label><span>Logo on Hover</span><div class="switch"><input type="checkbox" id="logo-on-hover"><span class="slider"></span></div></label>
+                <label><span>Open in New Tab</span><div class="switch"><input type="checkbox" id="new-tab"><span class="slider"></span></div></label>
             </div>
             <div class="modal-section">
                 <h4>Rows</h4>
-                <label><div class="switch"><input type="checkbox" id="hide-general"><span class="slider"></span></div>General</label>
-                <label><div class="switch"><input type="checkbox" id="hide-ai"><span class="slider"></span></div>AI</label>
-                <label><div class="switch"><input type="checkbox" id="hide-buy"><span class="slider"></span></div>Buy</label>
-                <label><div class="switch"><input type="checkbox" id="hide-social"><span class="slider"></span></div>Social</label>
-                <label><div class="switch"><input type="checkbox" id="hide-forum"><span class="slider"></span></div>Forum</label>
+                <label><span>General</span><div class="switch"><input type="checkbox" id="hide-general"><span class="slider"></span></div></label>
+                <label><span>AI</span><div class="switch"><input type="checkbox" id="hide-ai"><span class="slider"></span></div></label>
+                <label><span>Buy</span><div class="switch"><input type="checkbox" id="hide-buy"><span class="slider"></span></div></label>
+                <label><span>Social</span><div class="switch"><input type="checkbox" id="hide-social"><span class="slider"></span></div></label>
+                <label><span>Forum</span><div class="switch"><input type="checkbox" id="hide-forum"><span class="slider"></span></div></label>
             </div>
             <div class="modal-section sites-column">
                 <h4>Sites</h4>
                 <h5>General</h5>
-                <label><div class="switch"><input type="checkbox" id="hide-google"><span class="slider"></span></div><span>Google</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-youtube"><span class="slider"></span></div><span>YouTube</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-wikipedia"><span class="slider"></span></div><span>Wikipedia</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-spotify"><span class="slider"></span></div><span>Spotify</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-netflix"><span class="slider"></span></div><span>Netflix</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-maps"><span class="slider"></span></div><span>Maps</span></label>
+                <label><span>Google</span><div class="switch"><input type="checkbox" id="hide-google"><span class="slider"></span></div></label>
+                <label><span>YouTube</span><div class="switch"><input type="checkbox" id="hide-youtube"><span class="slider"></span></div></label>
+                <label><span>Wikipedia</span><div class="switch"><input type="checkbox" id="hide-wikipedia"><span class="slider"></span></div></label>
+                <label><span>Spotify</span><div class="switch"><input type="checkbox" id="hide-spotify"><span class="slider"></span></div></label>
+                <label><span>Netflix</span><div class="switch"><input type="checkbox" id="hide-netflix"><span class="slider"></span></div></label>
+                <label><span>Maps</span><div class="switch"><input type="checkbox" id="hide-maps"><span class="slider"></span></div></label>
                 <h5>AI</h5>
-                <label><div class="switch"><input type="checkbox" id="hide-chatgpt"><span class="slider"></span></div><span>ChatGPT</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-grok"><span class="slider"></span></div><span>Grok</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-gemini"><span class="slider"></span></div><span>Gemini</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-copilot"><span class="slider"></span></div><span>Copilot</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-claude"><span class="slider"></span></div><span>Claude</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-perplexity"><span class="slider"></span></div><span>Perplexity</span></label>
+                <label><span>ChatGPT</span><div class="switch"><input type="checkbox" id="hide-chatgpt"><span class="slider"></span></div></label>
+                <label><span>Grok</span><div class="switch"><input type="checkbox" id="hide-grok"><span class="slider"></span></div></label>
+                <label><span>Gemini</span><div class="switch"><input type="checkbox" id="hide-gemini"><span class="slider"></span></div></label>
+                <label><span>Copilot</span><div class="switch"><input type="checkbox" id="hide-copilot"><span class="slider"></span></div></label>
+                <label><span>Claude</span><div class="switch"><input type="checkbox" id="hide-claude"><span class="slider"></span></div></label>
+                <label><span>Perplexity</span><div class="switch"><input type="checkbox" id="hide-perplexity"><span class="slider"></span></div></label>
                 <h5>Buy</h5>
-                <label><div class="switch"><input type="checkbox" id="hide-amazon"><span class="slider"></span></div><span>Amazon</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-ebay"><span class="slider"></span></div><span>eBay</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-alibaba"><span class="slider"></span></div><span>Alibaba</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-walmart"><span class="slider"></span></div><span>Walmart</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-mercadolibre"><span class="slider"></span></div><span>MercadoLibre</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-etsy"><span class="slider"></span></div><span>Etsy</span></label>
+                <label><span>Amazon</span><div class="switch"><input type="checkbox" id="hide-amazon"><span class="slider"></span></div></label>
+                <label><span>eBay</span><div class="switch"><input type="checkbox" id="hide-ebay"><span class="slider"></span></div></label>
+                <label><span>Alibaba</span><div class="switch"><input type="checkbox" id="hide-alibaba"><span class="slider"></span></div></label>
+                <label><span>Walmart</span><div class="switch"><input type="checkbox" id="hide-walmart"><span class="slider"></span></div></label>
+                <label><span>MercadoLibre</span><div class="switch"><input type="checkbox" id="hide-mercadolibre"><span class="slider"></span></div></label>
+                <label><span>Etsy</span><div class="switch"><input type="checkbox" id="hide-etsy"><span class="slider"></span></div></label>
                 <h5>Social</h5>
-                <label><div class="switch"><input type="checkbox" id="hide-x"><span class="slider"></span></div><span>X</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-facebook"><span class="slider"></span></div><span>Facebook</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-tiktok"><span class="slider"></span></div><span>TikTok</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-twitch"><span class="slider"></span></div><span>Twitch</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-linkedin"><span class="slider"></span></div><span>LinkedIn</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-instagram"><span class="slider"></span></div><span>Instagram</span></label>
+                <label><span>X</span><div class="switch"><input type="checkbox" id="hide-x"><span class="slider"></span></div></label>
+                <label><span>Facebook</span><div class="switch"><input type="checkbox" id="hide-facebook"><span class="slider"></span></div></label>
+                <label><span>TikTok</span><div class="switch"><input type="checkbox" id="hide-tiktok"><span class="slider"></span></div></label>
+                <label><span>Twitch</span><div class="switch"><input type="checkbox" id="hide-twitch"><span class="slider"></span></div></label>
+                <label><span>LinkedIn</span><div class="switch"><input type="checkbox" id="hide-linkedin"><span class="slider"></span></div></label>
+                <label><span>Instagram</span><div class="switch"><input type="checkbox" id="hide-instagram"><span class="slider"></span></div></label>
                 <h5>Forum</h5>
-                <label><div class="switch"><input type="checkbox" id="hide-reddit"><span class="slider"></span></div><span>Reddit</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-stackoverflow"><span class="slider"></span></div><span>Stack Overflow</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-discord"><span class="slider"></span></div><span>Discord</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-4chan"><span class="slider"></span></div><span>4chan</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-quora"><span class="slider"></span></div><span>Quora</span></label>
-                <label><div class="switch"><input type="checkbox" id="hide-ted"><span class="slider"></span></div><span>TED</span></label>
+                <label><span>Reddit</span><div class="switch"><input type="checkbox" id="hide-reddit"><span class="slider"></span></div></label>
+                <label><span>Stack Overflow</span><div class="switch"><input type="checkbox" id="hide-stackoverflow"><span class="slider"></span></div></label>
+                <label><span>Discord</span><div class="switch"><input type="checkbox" id="hide-discord"><span class="slider"></span></div></label>
+                <label><span>4chan</span><div class="switch"><input type="checkbox" id="hide-4chan"><span class="slider"></span></div></label>
+                <label><span>Quora</span><div class="switch"><input type="checkbox" id="hide-quora"><span class="slider"></span></div></label>
+                <label><span>TED</span><div class="switch"><input type="checkbox" id="hide-ted"><span class="slider"></span></div></label>
             </div>
         </div>
     </div>
@@ -217,33 +216,14 @@
     <div id="promote-modal" class="modal">
         <div class="feedback-modal-content">
             <span class="close">×</span>
-            <h4>Advertise in this site</h4>
+            <h4>Promote</h4>
             <form action="submit_feedback.php" method="POST">
                 <input type="hidden" name="type" value="promote">
-                <textarea id="promote-message" name="message" maxlength="200" placeholder="Your message here"></textarea>
+                <textarea id="promote-message" name="message" maxlength="200" placeholder="Promotion details..."></textarea>
                 <div id="promote-counter" class="char-counter">200/200</div>
                 <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
                 <button id="submit-promote" type="submit">Submit</button>
             </form>
-        </div>
-    </div>
-    <div id="language-modal" class="modal">
-        <div class="modal-content language-modal-content">
-            <span class="close">×</span>
-            <h4>Language</h4>
-            <div class="language-grid">
-                <button class="language-btn" data-lang="en">🇬🇧 English</button>
-                <button class="language-btn" data-lang="es">🇪🇸 Español</button>
-                <button class="language-btn" data-lang="hi">🇮🇳 हिन्दी</button>
-                <button class="language-btn" data-lang="bn">🇧🇩 বাংলা</button>
-                <button class="language-btn" data-lang="ar">🇸🇦 Arabic</button>
-                <button class="language-btn" data-lang="fr">🇫🇷 Français</button>
-                <button class="language-btn" data-lang="pt">🇵🇹 Português</button>
-                <button class="language-btn" data-lang="ru">🇷🇺 Русский</button>
-                <button class="language-btn" data-lang="id">🇮🇩 Bahasa Indonesia</button>
-                <button class="language-btn" data-lang="it">🇮🇹 Italiano</button>
-                <button class="language-btn" data-lang="de">🇩🇪 Deutsch</button>
-            </div>
         </div>
     </div>
     <div class="cookie-consent">
@@ -261,6 +241,5 @@
     <script src="settings.js"></script>
     <script src="forms.js"></script>
     <script src="search.js"></script>
-    <script src="language.js"></script>
 </body>
 </html>

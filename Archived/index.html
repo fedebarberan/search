@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <!-- Version 2.5 - Centered cookie popup with reject option -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*.com https://*.org https://*.ai https://*.tv https://*.svg https://*.media.net https://*.googleusercontent.com https://www.scdn.co https://cdn.sstatic.net; style-src 'self' 'unsafe-inline' https://*.media.net https://*.google.com; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://pagead2.googlesyndication.com https://contextual.media.net https://*.amazon-adsystem.com https://*.adtrafficquality.google https://cdnjs.cloudflare.com; connect-src 'self' https://*.google.com https://*.doubleclick.net https://*.media.net https://*.adtrafficquality.google; frame-src 'self' https://*.doubleclick.net https://www.google.com https://contextual.media.net https://*.adtrafficquality.google">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFe4L2QQm+6zJ+HmjEPHedigceUEyndVDN/xcfro1t1tV4BmUC66R2A==" crossorigin="anonymous"></script>
+</head>
+<body class="dark-mode">
+    <div class="ad-container top-ad">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0678956067490689" crossorigin="anonymous"></script>
+        <!-- SearchTop -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-0678956067490689"
+             data-ad-slot="9077803883"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="icon-container">
+        <button id="settings-icon" data-tooltip="Settings" aria-label="Open settings">⚙️</button>
+        <button id="theme-icon" data-tooltip="Toggle Dark/Light" aria-label="Toggle dark or light mode">🌙</button>
+        <button id="bug-icon" data-tooltip="Report a Bug" aria-label="Report a bug">🐞</button>
+        <button id="suggestion-icon" data-tooltip="Send a Suggestion" aria-label="Send a suggestion">💡</button>
+        <button id="add-site-icon" data-tooltip="Suggest a Search Site" aria-label="Suggest a search site">➕</button>
+    </div>
+    <textarea id="query" placeholder="Search or ask here and click any site below" rows="2"></textarea>
+    <div class="button-container">
+        <div class="button-row" data-row="general">
+            <label>General</label>
+            <div class="button-group">
+                <button data-platform="google" aria-label="Search on Google"><span>Google</span></button>
+                <button data-platform="youtube" aria-label="Search on YouTube"><span>YouTube</span></button>
+                <button data-platform="wikipedia" aria-label="Search on Wikipedia"><span>Wikipedia</span></button>
+                <button data-platform="spotify" aria-label="Search on Spotify"><span>Spotify</span></button>
+                <button data-platform="netflix" aria-label="Search on Netflix"><span>Netflix</span></button>
+                <button data-platform="maps" aria-label="Search on Google Maps"><span>Maps</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="ai">
+            <label>AI</label>
+            <div class="button-group">
+                <button data-platform="grok" aria-label="Search on Grok"><span>Grok</span></button>
+                <button data-platform="chatgpt" aria-label="Search on ChatGPT"><span>ChatGPT</span></button>
+                <button data-platform="gemini" aria-label="Search on Gemini"><span>Gemini</span></button>
+                <button data-platform="copilot" aria-label="Search on Copilot"><span>Copilot</span></button>
+                <button data-platform="claude" aria-label="Search on Claude"><span>Claude</span></button>
+                <button data-platform="perplexity" aria-label="Search on Perplexity"><span>Perplexity</span></button>
+            </div>
+        </div>
+
+        <div class="ad-container mid-ad">
+            <script async src="https://contextual.media.net/dmedianet.js?cid=YOUR_MEDIA_NET_CID"></script>
+            <div id="YOUR_MEDIA_NET_AD_ID">
+                <script>window._mNHandle = window._mNHandle || []; window._mNHandle.queue = window._mNHandle.queue || []; window._mNHandle.queue.push(function(){window._mNDetails.loadTag("YOUR_MEDIA_NET_AD_ID", "728x90", "YOUR_MEDIA_NET_CID");});</script>
+            </div>
+        </div>
+
+        <div class="button-row" data-row="buy">
+            <label>Buy</label>
+            <div class="button-group">
+                <button data-platform="amazon" aria-label="Search on Amazon"><span>Amazon</span></button>
+                <button data-platform="ebay" aria-label="Search on eBay"><span>eBay</span></button>
+                <button data-platform="alibaba" aria-label="Search on Alibaba"><span>Alibaba</span></button>
+                <button data-platform="walmart" aria-label="Search on Walmart"><span>Walmart</span></button>
+                <button data-platform="mercadolibre" aria-label="Search on Mercado Libre"><span>Mercado Libre</span></button>
+                <button data-platform="etsy" aria-label="Search on Etsy"><span>Etsy</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="social">
+            <label>Social</label>
+            <div class="button-group">
+                <button data-platform="x" aria-label="Search on X"><span>X</span></button>
+                <button data-platform="facebook" aria-label="Search on Facebook"><span>Facebook</span></button>
+                <button data-platform="tiktok" aria-label="Search on TikTok"><span>TikTok</span></button>
+                <button data-platform="twitch" aria-label="Search on Twitch"><span>Twitch</span></button>
+                <button data-platform="linkedin" aria-label="Search on LinkedIn"><span>LinkedIn</span></button>
+                <button data-platform="instagram" aria-label="Search on Instagram"><span>Instagram</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="forum">
+            <label>Forum</label>
+            <div class="button-group">
+                <button data-platform="reddit" aria-label="Search on Reddit"><span>Reddit</span></button>
+                <button data-platform="stackoverflow" aria-label="Search on Stack Overflow"><span>Stack Overflow</span></button>
+                <button data-platform="discord" aria-label="Search on Discord"><span>Discord</span></button>
+                <button data-platform="4chan" aria-label="Search on 4chan"><span>4chan</span></button>
+                <button data-platform="quora" aria-label="Search on Quora"><span>Quora</span></button>
+                <button data-platform="ted" aria-label="Search on TED"><span>TED</span></button>
+            </div>
+        </div>
+        <div class="button-row" data-row="promoted">
+            <label>Promoted</label>
+            <div class="button-group">
+                <button data-platform="promoted-1" aria-label="Promote your site (Slot 1)"><span>Available!</span></button>
+                <button data-platform="promoted-2" aria-label="Promote your site (Slot 2)"><span>Available!</span></button>
+                <button data-platform="promoted-3" aria-label="Promote your site (Slot 3)"><span>Available!</span></button>
+                <button data-platform="promoted-4" aria-label="Promote your site (Slot 4)"><span>Available!</span></button>
+                <button data-platform="promoted-5" aria-label="Promote your site (Slot 5)"><span>Available!</span></button>
+                <button data-platform="promoted-6" aria-label="Promote your site (Slot 6)"><span>Available!</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ad-container bottom-ad">
+        <p>
+            Explore more on Amazon:
+            <a href="https://www.amazon.com/?tag=YOUR_AMAZON_AFFILIATE_TAG" target="_blank" rel="noopener">Amazon Home</a> |
+            <a href="https://www.amazon.com/bestsellers?tag=YOUR_AMAZON_AFFILIATE_TAG" target="_blank" rel="noopener">Best Sellers</a> |
+            <a href="https://www.amazon.com/gp/goldbox?tag=YOUR_AMAZON_AFFILIATE_TAG" target="_blank" rel="noopener">Today’s Deals</a> |
+            <a href="privacy.html">Privacy Policy</a>
+        </p>
+    </div>
+
+    <div class="no-rows-message">Go to settings to enable some action buttons.</div>
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <div class="modal-section">
+                <h4>General Settings</h4>
+                <label>
+                    <span class="switch"><input type="checkbox" id="sort-by-usage"><span class="slider"></span></span>
+                    <span class="two-line-label">Most visited<br>sites first</span>
+                </label>
+                <button id="reset-usage">Reset visited sites</button>
+                <hr>
+                <label>
+                    <span class="switch"><input type="checkbox" id="logo-on-hover"><span class="slider"></span></span>
+                    <span class="two-line-label">Show logo on<br>mouse over</span>
+                </label>
+                <label>
+                    <span class="switch"><input type="checkbox" id="new-tab"><span class="slider"></span></span>
+                    <span class="two-line-label">Open results in<br>new tab</span>
+                </label>
+            </div>
+            <div class="modal-section">
+                <h4>Rows</h4>
+                <label data-row="general">
+                    <span class="switch"><input type="checkbox" id="hide-general" checked><span class="slider"></span></span>
+                    General
+                </label>
+                <label data-row="ai">
+                    <span class="switch"><input type="checkbox" id="hide-ai" checked><span class="slider"></span></span>
+                    AI
+                </label>
+                <label data-row="buy">
+                    <span class="switch"><input type="checkbox" id="hide-buy" checked><span class="slider"></span></span>
+                    Buy
+                </label>
+                <label data-row="social">
+                    <span class="switch"><input type="checkbox" id="hide-social" checked><span class="slider"></span></span>
+                    Social
+                </label>
+                <label data-row="forum">
+                    <span class="switch"><input type="checkbox" id="hide-forum" checked><span class="slider"></span></span>
+                    Forum
+                </label>
+            </div>
+            <div class="modal-section sites-column">
+                <h4>Sites</h4>
+                <h5>General</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-google" checked><span class="slider"></span></span> Google</label>
+                <label><span class="switch"><input type="checkbox" id="hide-youtube" checked><span class="slider"></span></span> YouTube</label>
+                <label><span class="switch"><input type="checkbox" id="hide-wikipedia" checked><span class="slider"></span></span> Wikipedia</label>
+                <label><span class="switch"><input type="checkbox" id="hide-spotify" checked><span class="slider"></span></span> Spotify</label>
+                <label><span class="switch"><input type="checkbox" id="hide-netflix" checked><span class="slider"></span></span> Netflix</label>
+                <label><span class="switch"><input type="checkbox" id="hide-maps" checked><span class="slider"></span></span> Maps</label>
+                <h5>AI</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-grok" checked><span class="slider"></span></span> Grok</label>
+                <label><span class="switch"><input type="checkbox" id="hide-chatgpt" checked><span class="slider"></span></span> ChatGPT</label>
+                <label><span class="switch"><input type="checkbox" id="hide-gemini" checked><span class="slider"></span></span> Gemini</label>
+                <label><span class="switch"><input type="checkbox" id="hide-copilot" checked><span class="slider"></span></span> Copilot</label>
+            </div>
+            <div class="modal-section sites-column">
+                <h5>AI (continued)</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-claude" checked><span class="slider"></span></span> Claude</label>
+                <label><span class="switch"><input type="checkbox" id="hide-perplexity" checked><span class="slider"></span></span> Perplexity</label>
+                <h5>Buy</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-amazon" checked><span class="slider"></span></span> Amazon</label>
+                <label><span class="switch"><input type="checkbox" id="hide-ebay" checked><span class="slider"></span></span> eBay</label>
+                <label><span class="switch"><input type="checkbox" id="hide-alibaba" checked><span class="slider"></span></span> Alibaba</label>
+                <label><span class="switch"><input type="checkbox" id="hide-walmart" checked><span class="slider"></span></span> Walmart</label>
+                <label><span class="switch"><input type="checkbox" id="hide-mercadolibre" checked><span class="slider"></span></span> Mercado Libre</label>
+                <label><span class="switch"><input type="checkbox" id="hide-etsy" checked><span class="slider"></span></span> Etsy</label>
+                <h5>Social</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-x" checked><span class="slider"></span></span> X</label>
+                <label><span class="switch"><input type="checkbox" id="hide-facebook" checked><span class="slider"></span></span> Facebook</label>
+            </div>
+            <div class="modal-section sites-column">
+                <h5>Social (continued)</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-tiktok" checked><span class="slider"></span></span> TikTok</label>
+                <label><span class="switch"><input type="checkbox" id="hide-twitch" checked><span class="slider"></span></span> Twitch</label>
+                <label><span class="switch"><input type="checkbox" id="hide-linkedin" checked><span class="slider"></span></span> LinkedIn</label>
+                <label><span class="switch"><input type="checkbox" id="hide-instagram" checked><span class="slider"></span></span> Instagram</label>
+                <h5>Forum</h5>
+                <label><span class="switch"><input type="checkbox" id="hide-reddit" checked><span class="slider"></span></span> Reddit</label>
+                <label><span class="switch"><input type="checkbox" id="hide-stackoverflow" checked><span class="slider"></span></span> Stack Overflow</label>
+                <label><span class="switch"><input type="checkbox" id="hide-discord" checked><span class="slider"></span></span> Discord</label>
+                <label><span class="switch"><input type="checkbox" id="hide-4chan" checked><span class="slider"></span></span> 4chan</label>
+                <label><span class="switch"><input type="checkbox" id="hide-quora" checked><span class="slider"></span></span> Quora</label>
+                <label><span class="switch"><input type="checkbox" id="hide-ted" checked><span class="slider"></span></span> TED</label>
+            </div>
+        </div>
+    </div>
+    <div id="bug-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <form action="submit.php" method="POST">
+                <h3>Report a Bug</h3>
+                <textarea id="bug-message" name="message" maxlength="200" placeholder="Describe the bug (max 200 characters)..." required></textarea>
+                <div class="char-counter" id="bug-counter">200/200</div>
+                <input type="hidden" name="type" value="bug">
+                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
+                <button type="submit" id="submit-bug">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="suggestion-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <form action="submit.php" method="POST">
+                <h3>Send a Suggestion</h3>
+                <textarea id="suggestion-message" name="message" maxlength="200" placeholder="Your suggestion (max 200 characters)..." required></textarea>
+                <div class="char-counter" id="suggestion-counter">200/200</div>
+                <input type="hidden" name="type" value="suggestion">
+                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
+                <button type="submit" id="submit-suggestion">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="add-site-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <form action="submit.php" method="POST">
+                <h3>Suggest a Search Site</h3>
+                <input type="text" id="add-site-input" name="url" maxlength="70" value="http://" placeholder="Enter site URL (max 70 characters)" required>
+                <div class="char-counter" id="add-site-counter">70/70</div>
+                <input type="hidden" name="type" value="add-site">
+                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
+                <button type="submit" id="submit-add-site">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="promote-modal" class="modal">
+        <div class="feedback-modal-content">
+            <span class="close">×</span>
+            <form action="submit.php" method="POST">
+                <h3>Ask Your Site to Be Promoted</h3>
+                <p>(Promote your site here for a fee)</p>
+                <textarea id="promote-message" name="message" maxlength="200" placeholder="Enter site details (max 200 characters)..." required></textarea>
+                <div class="char-counter" id="promote-counter">200/200</div>
+                <input type="hidden" name="type" value="promote">
+                <div class="g-recaptcha" data-sitekey="6Leji-YqAAAAANGcl5wtuIimS3KSSBR8LHn5T0BL"></div>
+                <button type="submit" id="submit-promote">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cookie-consent" class="cookie-consent">
+        <p>We use cookies and anonymized data to improve your experience. <a href="privacy.html">Learn more</a></p>
+        <div class="cookie-buttons">
+            <button onclick="acceptCookies()">Accept</button>
+            <button onclick="rejectCookies()">Reject</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function acceptCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
+            localStorage.setItem('cookieConsent', 'true');
+        }
+        function rejectCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
+            localStorage.setItem('cookieConsent', 'rejected');
+        }
+        if (!localStorage.getItem('cookieConsent')) {
+            document.getElementById('cookie-consent').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
