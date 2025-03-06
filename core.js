@@ -1,4 +1,4 @@
-// Version 2.10 - Fixed promote modal trigger, aligned with latest updates
+// Version 2.11 - Fixed language icon modal toggle with error handling
 document.addEventListener('DOMContentLoaded', () => {
     const faviconUrls = {
         'google': 'https://www.google.com/favicon.ico',
@@ -47,16 +47,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const toggleModal = (modalId, triggerId, closeClass) => {
         const modal = document.getElementById(modalId);
-        document.getElementById(triggerId).addEventListener('click', () => modal.style.display = 'block');
-        modal.querySelector(`.${closeClass}`).addEventListener('click', () => modal.style.display = 'none');
-        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+        const trigger = document.getElementById(triggerId);
+        if (!modal || !trigger) {
+            console.error(`Modal toggle failed: #${modalId} or #${triggerId} not found`);
+            return;
+        }
+        trigger.addEventListener('click', () => {
+            console.log(`Opening modal: ${modalId}`);
+            modal.style.display = 'block';
+        });
+        modal.querySelector(`.${closeClass}`).addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
     };
 
     toggleModal('settings-modal', 'settings-icon', 'close');
     toggleModal('bug-modal', 'bug-icon', 'close');
     toggleModal('suggestion-modal', 'suggestion-icon', 'close');
     toggleModal('add-site-modal', 'add-site-icon', 'close');
-    toggleModal('promote-modal', 'promote-icon', 'close'); // Fixed trigger from 'submit-promote' to 'promote-icon'
+    toggleModal('promote-modal', 'promote-icon', 'close'); // Note: 'promote-icon' not in index.html
     toggleModal('language-modal', 'language-icon', 'close');
 
     document.querySelectorAll('button[data-platform^="promoted-"]').forEach(button => {

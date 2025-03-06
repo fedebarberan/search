@@ -1,4 +1,4 @@
-/* Version 3.3 - Fixed settings modal label overlap, adjusted language modal title */
+/* Version 3.4 - Centered cookie consent modal */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -500,7 +500,8 @@ button#reset-usage:disabled {
     display: none;
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
