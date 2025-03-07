@@ -1,4 +1,4 @@
-// Version 2.13 - Translated General Settings titles and items
+// Version 2.14 - Fixed cookie consent null error
 const translations = {
     en: {
         enterSearch: 'Enter search query',
@@ -809,13 +809,19 @@ function updateLanguage(lang, isUserSelection = false) {
         h5.textContent = translation[sections[index]];
     });
 
-    // Update cookie consent with null check
-    const cookieConsentP = document.querySelector('.cookie-consent p');
-    if (cookieConsentP) {
-        cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
-        document.querySelector('.cookie-consent a').textContent = translation.learnMore;
-        document.getElementById('accept-cookies').textContent = translation.accept;
-        document.getElementById('decline-cookies').textContent = translation.decline;
+    // Update cookie consent with improved null check
+    const cookieConsent = document.querySelector('.cookie-consent');
+    if (cookieConsent) {
+        const cookieConsentP = cookieConsent.querySelector('p');
+        if (cookieConsentP) {
+            cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
+        }
+        const learnMoreLink = cookieConsent.querySelector('a');
+        if (learnMoreLink) learnMoreLink.textContent = translation.learnMore;
+        const acceptButton = document.getElementById('accept-cookies');
+        if (acceptButton) acceptButton.textContent = translation.accept;
+        const declineButton = document.getElementById('decline-cookies');
+        if (declineButton) declineButton.textContent = translation.decline;
     }
 }
 
