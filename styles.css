@@ -1,4 +1,4 @@
-/* Version 3.4 - Centered cookie consent modal */
+/* Version 3.6 - Centered items in cookie consent */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -497,23 +497,29 @@ button#reset-usage:disabled {
     background-color: #555;
 }
 .cookie-consent {
-    display: none;
     position: fixed;
     bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 1000;
-    display: flex;
+    max-width: 90%;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+.cookie-consent[style*="display: block"] {
+    display: flex !important;
     align-items: center;
     gap: 10px;
 }
 .cookie-consent p {
     margin: 0;
+    text-align: center;
 }
 .cookie-consent a {
     color: #2196F3;

@@ -1,4 +1,4 @@
-// Version 2.11 - Fixed language icon modal toggle with error handling
+// Version 2.15 - Fixed promote-modal closing behavior
 document.addEventListener('DOMContentLoaded', () => {
     const faviconUrls = {
         'google': 'https://www.google.com/favicon.ico',
@@ -45,49 +45,94 @@ document.addEventListener('DOMContentLoaded', () => {
         this.style.height = `${this.scrollHeight}px`;
     });
 
-    const toggleModal = (modalId, triggerId, closeClass) => {
+    const setupModal = (modalId, triggerId = null, triggerSelector = null) => {
         const modal = document.getElementById(modalId);
-        const trigger = document.getElementById(triggerId);
-        if (!modal || !trigger) {
-            console.error(`Modal toggle failed: #${modalId} or #${triggerId} not found`);
+        if (!modal) {
+            console.error(`Modal #${modalId} not found`);
             return;
         }
-        trigger.addEventListener('click', () => {
-            console.log(`Opening modal: ${modalId}`);
-            modal.style.display = 'block';
+
+        // Close button
+        const closeButton = modal.querySelector('.close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        } else {
+            console.warn(`Close button not found in #${modalId}`);
+        }
+
+        // Background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
         });
-        modal.querySelector(`.${closeClass}`).addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) modal.style.display = 'none';
-        });
+
+        // Trigger (icon or buttons)
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) {
+                trigger.addEventListener('click', () => {
+                    console.log(`Opening modal: ${modalId}`);
+                    modal.style.display = 'block';
+                });
+            } else {
+                console.error(`Trigger #${triggerId} not found for #${modalId}`);
+            }
+        } else if (triggerSelector) {
+            document.querySelectorAll(triggerSelector).forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    console.log(`Opening modal: ${modalId} via ${triggerSelector}`);
+                    modal.style.display = 'block';
+                });
+            });
+        }
     };
 
-    toggleModal('settings-modal', 'settings-icon', 'close');
-    toggleModal('bug-modal', 'bug-icon', 'close');
-    toggleModal('suggestion-modal', 'suggestion-icon', 'close');
-    toggleModal('add-site-modal', 'add-site-icon', 'close');
-    toggleModal('promote-modal', 'promote-icon', 'close'); // Note: 'promote-icon' not in index.html
-    toggleModal('language-modal', 'language-icon', 'close');
+    // Setup modals with icon triggers
+    setupModal('settings-modal', 'settings-icon');
+    setupModal('bug-modal', 'bug-icon');
+    setupModal('suggestion-modal', 'suggestion-icon');
+    setupModal('add-site-modal', 'add-site-icon');
+    setupModal('language-modal', 'language-icon');
 
-    document.querySelectorAll('button[data-platform^="promoted-"]').forEach(button => {
-        button.addEventListener('click', () => document.getElementById('promote-modal').style.display = 'block');
-    });
+    // Setup promote-modal with "Available" button triggers
+    setupModal('promote-modal', null, 'button[data-platform^="promoted-"]');
 
     // Cookie consent
     const consent = document.querySelector('.cookie-consent');
+    const acceptButton = document.getElementById('accept-cookies');
+    const declineButton = document.getElementById('decline-cookies');
+
     if (!localStorage.getItem('cookieConsent')) {
-        consent.style.display = 'flex';
+        if (consent) {
+            consent.style.display = 'block';
+            console.log('Cookie consent displayed');
+        } else {
+            console.error('Cookie consent element not found');
+        }
     }
-    document.getElementById('accept-cookies').addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'accepted');
-        consent.style.display = 'none';
-    });
-    document.getElementById('decline-cookies').addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'declined');
-        consent.style.display = 'none';
-    });
+
+    if (acceptButton) {
+        acceptButton.addEventListener('click', () => {
+            console.log('Accept cookies clicked');
+            localStorage.setItem('cookieConsent', 'accepted');
+            consent.style.display = 'none';
+        });
+    } else {
+        console.error('Accept cookies button not found');
+    }
+
+    if (declineButton) {
+        declineButton.addEventListener('click', () => {
+            console.log('Decline cookies clicked');
+            localStorage.setItem('cookieConsent', 'declined');
+            consent.style.display = 'none';
+        });
+    } else {
+        console.error('Decline cookies button not found');
+    }
 
     // AdSense push
     window.adsbygoogle = window.adsbygoogle || [];
