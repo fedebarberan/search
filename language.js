@@ -1,4 +1,4 @@
-// Version 2.14 - Fixed cookie consent null error
+// Version 2.15 - Improved DOM timing and null checks for cookie consent
 const translations = {
     en: {
         enterSearch: 'Enter search query',
@@ -733,6 +733,22 @@ const languageFlags = {
     de: '🇩🇪'
 };
 
+function updateCookieConsent(translation) {
+    const cookieConsent = document.querySelector('.cookie-consent');
+    if (!cookieConsent) return;
+
+    const cookieConsentP = cookieConsent.querySelector('p');
+    if (cookieConsentP && cookieConsentP.childNodes.length > 0) {
+        cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
+    }
+    const learnMoreLink = cookieConsent.querySelector('a');
+    if (learnMoreLink) learnMoreLink.textContent = translation.learnMore;
+    const acceptButton = document.getElementById('accept-cookies');
+    if (acceptButton) acceptButton.textContent = translation.accept;
+    const declineButton = document.getElementById('decline-cookies');
+    if (declineButton) declineButton.textContent = translation.decline;
+}
+
 function updateLanguage(lang, isUserSelection = false) {
     localStorage.setItem('language', lang);
     const translation = translations[lang] || translations['en'];
@@ -744,15 +760,21 @@ function updateLanguage(lang, isUserSelection = false) {
     }
 
     // Update search box placeholder
-    document.getElementById('query').placeholder = translation.enterSearch;
+    const queryInput = document.getElementById('query');
+    if (queryInput) queryInput.placeholder = translation.enterSearch;
 
     // Update tooltips
-    document.getElementById('theme-icon').dataset.tooltip = translation.toggleTheme;
-    document.getElementById('settings-icon').dataset.tooltip = translation.settings;
-    document.getElementById('bug-icon').dataset.tooltip = translation.reportBug;
-    document.getElementById('suggestion-icon').dataset.tooltip = translation.suggestFeature;
-    document.getElementById('add-site-icon').dataset.tooltip = translation.addSite;
-    document.getElementById('language-icon').dataset.tooltip = translation.language;
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) themeIcon.dataset.tooltip = translation.toggleTheme;
+    const settingsIcon = document.getElementById('settings-icon');
+    if (settingsIcon) settingsIcon.dataset.tooltip = translation.settings;
+    const bugIcon = document.getElementById('bug-icon');
+    if (bugIcon) bugIcon.dataset.tooltip = translation.reportBug;
+    const suggestionIcon = document.getElementById('suggestion-icon');
+    if (suggestionIcon) suggestionIcon.dataset.tooltip = translation.suggestFeature;
+    const addSiteIcon = document.getElementById('add-site-icon');
+    if (addSiteIcon) addSiteIcon.dataset.tooltip = translation.addSite;
+    if (languageIcon) languageIcon.dataset.tooltip = translation.language;
 
     // Update search buttons
     document.querySelectorAll('button[data-platform]').forEach(button => {
@@ -771,58 +793,71 @@ function updateLanguage(lang, isUserSelection = false) {
     });
 
     // Update modal titles
-    document.querySelector('#bug-modal h4').textContent = translation.reportABug;
-    document.querySelector('#suggestion-modal h4').textContent = translation.suggestAFeature;
-    document.querySelector('#add-site-modal h4').textContent = translation.addASite;
-    document.querySelector('#promote-modal h4').textContent = translation.promoteYourSite;
-    document.querySelector('#language-modal h4').textContent = translation.language;
+    const bugModalTitle = document.querySelector('#bug-modal h4');
+    if (bugModalTitle) bugModalTitle.textContent = translation.reportABug;
+    const suggestionModalTitle = document.querySelector('#suggestion-modal h4');
+    if (suggestionModalTitle) suggestionModalTitle.textContent = translation.suggestAFeature;
+    const addSiteModalTitle = document.querySelector('#add-site-modal h4');
+    if (addSiteModalTitle) addSiteModalTitle.textContent = translation.addASite;
+    const promoteModalTitle = document.querySelector('#promote-modal h4');
+    if (promoteModalTitle) promoteModalTitle.textContent = translation.promoteYourSite;
+    const languageModalTitle = document.querySelector('#language-modal h4');
+    if (languageModalTitle) languageModalTitle.textContent = translation.language;
 
     // Update modal placeholders and buttons
-    document.getElementById('bug-message').placeholder = translation.describeBug;
-    document.getElementById('suggestion-message').placeholder = translation.yourSuggestion;
-    document.getElementById('add-site-input').placeholder = translation.siteUrl;
-    document.getElementById('promote-message').placeholder = translation.promoteMessage;
-    document.getElementById('submit-bug').textContent = translation.submit;
-    document.getElementById('submit-suggestion').textContent = translation.submit;
-    document.getElementById('submit-add-site').textContent = translation.submit;
-    document.getElementById('submit-promote').textContent = translation.submit;
+    const bugMessage = document.getElementById('bug-message');
+    if (bugMessage) bugMessage.placeholder = translation.describeBug;
+    const suggestionMessage = document.getElementById('suggestion-message');
+    if (suggestionMessage) suggestionMessage.placeholder = translation.yourSuggestion;
+    const addSiteInput = document.getElementById('add-site-input');
+    if (addSiteInput) addSiteInput.placeholder = translation.siteUrl;
+    const promoteMessage = document.getElementById('promote-message');
+    if (promoteMessage) promoteMessage.placeholder = translation.promoteMessage;
+    const submitBug = document.getElementById('submit-bug');
+    if (submitBug) submitBug.textContent = translation.submit;
+    const submitSuggestion = document.getElementById('submit-suggestion');
+    if (submitSuggestion) submitSuggestion.textContent = translation.submit;
+    const submitAddSite = document.getElementById('submit-add-site');
+    if (submitAddSite) submitAddSite.textContent = translation.submit;
+    const submitPromote = document.getElementById('submit-promote');
+    if (submitPromote) submitPromote.textContent = translation.submit;
 
     // Update settings modal
-    document.querySelector('#settings-modal .modal-section:first-child h4').textContent = translation.generalSettings;
-    document.querySelector('#sort-by-usage').nextSibling.nextSibling.textContent = translation.mostVisitedSitesFirst;
-    document.getElementById('reset-usage').textContent = translation.resetVisitedSites;
-    document.querySelector('#logo-on-hover').nextSibling.nextSibling.textContent = translation.showLogoOnMouseOver;
-    document.querySelector('#new-tab').nextSibling.nextSibling.textContent = translation.openResultsInNewTab;
-    document.querySelector('#settings-modal .modal-section:nth-child(2) h4').textContent = translation.rows;
-    document.querySelector('#settings-modal .modal-section:nth-child(3) h4').textContent = translation.sites;
+    const generalSettingsTitle = document.querySelector('#settings-modal .modal-section:first-child h4');
+    if (generalSettingsTitle) generalSettingsTitle.textContent = translation.generalSettings;
+    const sortByUsageLabel = document.querySelector('#sort-by-usage');
+    if (sortByUsageLabel && sortByUsageLabel.nextSibling) sortByUsageLabel.nextSibling.nextSibling.textContent = translation.mostVisitedSitesFirst;
+    const resetUsage = document.getElementById('reset-usage');
+    if (resetUsage) resetUsage.textContent = translation.resetVisitedSites;
+    const logoOnHoverLabel = document.querySelector('#logo-on-hover');
+    if (logoOnHoverLabel && logoOnHoverLabel.nextSibling) logoOnHoverLabel.nextSibling.nextSibling.textContent = translation.showLogoOnMouseOver;
+    const newTabLabel = document.querySelector('#new-tab');
+    if (newTabLabel && newTabLabel.nextSibling) newTabLabel.nextSibling.nextSibling.textContent = translation.openResultsInNewTab;
+    const rowsTitle = document.querySelector('#settings-modal .modal-section:nth-child(2) h4');
+    if (rowsTitle) rowsTitle.textContent = translation.rows;
+    const sitesTitle = document.querySelector('#settings-modal .modal-section:nth-child(3) h4');
+    if (sitesTitle) sitesTitle.textContent = translation.sites;
 
     // Update row toggles in settings modal
-    document.querySelector('#hide-general').nextSibling.nextSibling.textContent = translation.general;
-    document.querySelector('#hide-ai').nextSibling.nextSibling.textContent = translation.ai;
-    document.querySelector('#hide-buy').nextSibling.nextSibling.textContent = translation.buy;
-    document.querySelector('#hide-social').nextSibling.nextSibling.textContent = translation.social;
-    document.querySelector('#hide-forum').nextSibling.nextSibling.textContent = translation.forum;
+    const hideGeneralLabel = document.querySelector('#hide-general');
+    if (hideGeneralLabel && hideGeneralLabel.nextSibling) hideGeneralLabel.nextSibling.nextSibling.textContent = translation.general;
+    const hideAiLabel = document.querySelector('#hide-ai');
+    if (hideAiLabel && hideAiLabel.nextSibling) hideAiLabel.nextSibling.nextSibling.textContent = translation.ai;
+    const hideBuyLabel = document.querySelector('#hide-buy');
+    if (hideBuyLabel && hideBuyLabel.nextSibling) hideBuyLabel.nextSibling.nextSibling.textContent = translation.buy;
+    const hideSocialLabel = document.querySelector('#hide-social');
+    if (hideSocialLabel && hideSocialLabel.nextSibling) hideSocialLabel.nextSibling.nextSibling.textContent = translation.social;
+    const hideForumLabel = document.querySelector('#hide-forum');
+    if (hideForumLabel && hideForumLabel.nextSibling) hideForumLabel.nextSibling.nextSibling.textContent = translation.forum;
 
     // Update sites section in settings modal
     document.querySelectorAll('#settings-modal .sites-column h5').forEach((h5, index) => {
         const sections = ['general', 'ai', 'buy', 'social', 'forum'];
-        h5.textContent = translation[sections[index]];
+        if (h5) h5.textContent = translation[sections[index]];
     });
 
-    // Update cookie consent with improved null check
-    const cookieConsent = document.querySelector('.cookie-consent');
-    if (cookieConsent) {
-        const cookieConsentP = cookieConsent.querySelector('p');
-        if (cookieConsentP) {
-            cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
-        }
-        const learnMoreLink = cookieConsent.querySelector('a');
-        if (learnMoreLink) learnMoreLink.textContent = translation.learnMore;
-        const acceptButton = document.getElementById('accept-cookies');
-        if (acceptButton) acceptButton.textContent = translation.accept;
-        const declineButton = document.getElementById('decline-cookies');
-        if (declineButton) declineButton.textContent = translation.decline;
-    }
+    // Update cookie consent
+    updateCookieConsent(translation);
 }
 
 document.querySelectorAll('.language-btn').forEach(button => {
