@@ -1,118 +1,152 @@
-// Version 2.9 - Fixed site toggles, moved reset button, adjusted logo hover, integrated translations
-let settings = JSON.parse(localStorage.getItem('protoFindSettings')) || {
-    sortByUsage: false,
-    logoOnHover: false,
-    newTab: false,
-    rows: { general: true, ai: true, buy: true, social: true, forum: true },
-    rowOrder: ['general', 'ai', 'buy', 'social', 'forum', 'promoted'],
-    buttons: {
-        google: true, youtube: true, wikipedia: true, spotify: true, netflix: true, maps: true,
-        chatgpt: true, grok: true, gemini: true, copilot: true, claude: true, perplexity: true,
-        amazon: true, ebay: true, alibaba: true, walmart: true, mercadolibre: true, etsy: true,
-        x: true, facebook: true, tiktok: true, twitch: true, linkedin: true, instagram: true,
-        reddit: true, stackoverflow: true, discord: true, '4chan': true, quora: true, ted: true
-    }
-};
+// Version 1.1 - Hide button label when logo-on-hover is enabled
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleRow = (checkboxId, rowClass) => {
+        const checkbox = document.getElementById(checkboxId);
+        const rows = document.querySelectorAll(rowClass);
+        checkbox.addEventListener('change', () => {
+            const isHidden = checkbox.checked;
+            rows.forEach(row => {
+                row.classList.toggle('hidden', isHidden);
+                localStorage.setItem(checkboxId, isHidden);
+            });
+            checkAllRowsHidden();
+        });
+        const savedState = localStorage.getItem(checkboxId) === 'true';
+        checkbox.checked = savedState;
+        rows.forEach(row => row.classList.toggle('hidden', savedState));
+    };
 
-document.getElementById('theme-icon').addEventListener('click', function() {
-    const body = document.body;
-    body.classList.toggle('dark-mode', !body.classList.contains('dark-mode'));
-    body.classList.toggle('light-mode', !body.classList.contains('light-mode'));
-    this.textContent = body.classList.contains('dark-mode') ? '🌙' : '☀️';
-    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-});
+    const toggleSite = (checkboxId, platform) => {
+        const checkbox = document.getElementById(checkboxId);
+        const buttons = document.querySelectorAll(`button[data-platform="${platform}"]`);
+        checkbox.addEventListener('change', () => {
+            const isHidden = checkbox.checked;
+            buttons.forEach(button => {
+                button.style.display = isHidden ? 'none' : 'inline-block';
+                localStorage.setItem(checkboxId, isHidden);
+            });
+        });
+        const savedState = localStorage.getItem(checkboxId) === 'true';
+        checkbox.checked = savedState;
+        buttons.forEach(button => button.style.display = savedState ? 'none' : 'inline-block');
+    };
 
-const saveSettings = () => localStorage.setItem('protoFindSettings', JSON.stringify(settings));
+    const checkAllRowsHidden = () => {
+        const allRowsHidden = Array.from(document.querySelectorAll('.button-row:not([data-row="promoted"])'))
+            .every(row => row.classList.contains('hidden'));
+        document.querySelector('.no-rows-message').style.display = allRowsHidden ? 'block' : 'none';
+    };
 
-const sortButtons = () => {
-    if (!settings.sortByUsage) return;
-    document.querySelectorAll('.button-group').forEach(group => {
-        const buttons = Array.from(group.children)
-            .filter(btn => !btn.classList.contains('hidden') && !btn.dataset.platform.startsWith('promoted-'))
-            .sort((a, b) => (usageCounts[b.dataset.platform] || 0) - (usageCounts[a.dataset.platform] || 0));
-        buttons.forEach(button => group.appendChild(button));
+    toggleRow('hide-general', '.button-row[data-row="general"]');
+    toggleRow('hide-ai', '.button-row[data-row="ai"]');
+    toggleRow('hide-buy', '.button-row[data-row="buy"]');
+    toggleRow('hide-social', '.button-row[data-row="social"]');
+    toggleRow('hide-forum', '.button-row[data-row="forum"]');
+
+    toggleSite('hide-google', 'google');
+    toggleSite('hide-youtube', 'youtube');
+    toggleSite('hide-wikipedia', 'wikipedia');
+    toggleSite('hide-spotify', 'spotify');
+    toggleSite('hide-netflix', 'netflix');
+    toggleSite('hide-maps', 'maps');
+    toggleSite('hide-chatgpt', 'chatgpt');
+    toggleSite('hide-grok', 'grok');
+    toggleSite('hide-gemini', 'gemini');
+    toggleSite('hide-copilot', 'copilot');
+    toggleSite('hide-claude', 'claude');
+    toggleSite('hide-perplexity', 'perplexity');
+    toggleSite('hide-amazon', 'amazon');
+    toggleSite('hide-ebay', 'ebay');
+    toggleSite('hide-alibaba', 'alibaba');
+    toggleSite('hide-walmart', 'walmart');
+    toggleSite('hide-mercadolibre', 'mercadolibre');
+    toggleSite('hide-etsy', 'etsy');
+    toggleSite('hide-x', 'x');
+    toggleSite('hide-facebook', 'facebook');
+    toggleSite('hide-tiktok', 'tiktok');
+    toggleSite('hide-twitch', 'twitch');
+    toggleSite('hide-linkedin', 'linkedin');
+    toggleSite('hide-instagram', 'instagram');
+    toggleSite('hide-reddit', 'reddit');
+    toggleSite('hide-stackoverflow', 'stackoverflow');
+    toggleSite('hide-discord', 'discord');
+    toggleSite('hide-4chan', '4chan');
+    toggleSite('hide-quora', 'quora');
+    toggleSite('hide-ted', 'ted');
+
+    const sortCheckbox = document.getElementById('sort-by-usage');
+    sortCheckbox.addEventListener('change', () => localStorage.setItem('sortByUsage', sortCheckbox.checked));
+    sortCheckbox.checked = localStorage.getItem('sortByUsage') === 'true';
+
+    const resetButton = document.getElementById('reset-usage');
+    resetButton.addEventListener('click', () => {
+        localStorage.removeItem('usageStats');
+        console.log('Usage stats reset');
     });
-};
 
-const applySettings = () => {
-    ['sort-by-usage', 'logo-on-hover', 'new-tab'].forEach(id => {
-        document.getElementById(id).checked = settings[id.replace(/-./g, c => c[1].toUpperCase())];
+    const logoCheckbox = document.getElementById('logo-on-hover');
+    const buttons = document.querySelectorAll('button[data-platform]');
+    logoCheckbox.addEventListener('change', () => {
+        const showLogos = logoCheckbox.checked;
+        localStorage.setItem('logoOnHover', showLogos);
+        buttons.forEach(button => {
+            const platform = button.dataset.platform;
+            const logoUrl = faviconUrls[platform];
+            if (logoUrl) {
+                button.classList.toggle('logo-hover', showLogos);
+                button.style.backgroundImage = showLogos ? `url(${logoUrl})` : 'none';
+                button.style.color = showLogos ? 'transparent' : ''; // Hide text when logo is shown
+            }
+        });
     });
-    document.querySelectorAll('button[data-platform]').forEach(button => {
+    const savedLogoState = localStorage.getItem('logoOnHover') === 'true';
+    logoCheckbox.checked = savedLogoState;
+    buttons.forEach(button => {
         const platform = button.dataset.platform;
-        if (!platform.startsWith('promoted-')) {
-            button.classList.toggle('logo-visible', settings.logoOnHover);
-            button.classList.toggle('hidden', !settings.buttons[platform]);
-            const toggle = document.getElementById(`hide-${platform}`);
-            if (toggle) toggle.checked = settings.buttons[platform];
+        const logoUrl = faviconUrls[platform];
+        if (logoUrl) {
+            button.classList.toggle('logo-hover', savedLogoState);
+            button.style.backgroundImage = savedLogoState ? `url(${logoUrl})` : 'none';
+            button.style.color = savedLogoState ? 'transparent' : '';
         }
     });
-    ['general', 'ai', 'buy', 'social', 'forum'].forEach(row => {
-        const toggle = document.getElementById(`hide-${row}`);
-        toggle.checked = settings.rows[row];
-        document.querySelector(`.button-row[data-row="${row}"]`).classList.toggle('hidden', !toggle.checked);
-    });
-    document.querySelector('.button-row[data-row="promoted"]').classList.remove('hidden');
-    const theme = localStorage.getItem('theme') || 'dark';
-    document.body.classList.remove('dark-mode', 'light-mode');
-    document.body.classList.add(`${theme}-mode`);
-    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
-    sortButtons();
+
+    const newTabCheckbox = document.getElementById('new-tab');
+    newTabCheckbox.addEventListener('change', () => localStorage.setItem('newTab', newTabCheckbox.checked));
+    newTabCheckbox.checked = localStorage.getItem('newTab') === 'true';
+
     checkAllRowsHidden();
+});
+
+const faviconUrls = {
+    'google': 'https://www.google.com/favicon.ico',
+    'youtube': 'https://www.youtube.com/favicon.ico',
+    'wikipedia': 'https://en.wikipedia.org/favicon.ico',
+    'spotify': 'https://www.spotify.com/favicon.ico',
+    'netflix': 'https://www.netflix.com/favicon.ico',
+    'maps': 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg',
+    'chatgpt': 'https://chat.openai.com/favicon.ico',
+    'grok': 'https://x.ai/favicon.ico',
+    'gemini': 'https://www.google.com/favicon.ico',
+    'copilot': 'https://copilot.microsoft.com/favicon.ico',
+    'claude': 'https://anthropic.com/favicon.ico',
+    'perplexity': 'https://www.perplexity.ai/favicon.ico',
+    'amazon': 'https://www.amazon.com/favicon.ico',
+    'ebay': 'https://www.ebay.com/favicon.ico',
+    'alibaba': 'https://www.alibaba.com/favicon.ico',
+    'walmart': 'https://www.walmart.com/favicon.ico',
+    'mercadolibre': 'https://companieslogo.com/img/orig/MELI-dc8392a9.svg',
+    'etsy': 'https://www.etsy.com/favicon.ico',
+    'x': 'https://x.com/favicon.ico',
+    'facebook': 'https://www.facebook.com/favicon.ico',
+    'tiktok': 'https://www.tiktok.com/favicon.ico',
+    'twitch': 'https://www.twitch.tv/favicon.ico',
+    'linkedin': 'https://www.linkedin.com/favicon.ico',
+    'instagram': 'https://www.instagram.com/static/images/ico/favicon.ico/36b3ee2d91ed.ico',
+    'reddit': 'https://www.reddit.com/favicon.ico',
+    'stackoverflow': 'https://stackoverflow.com/favicon.ico',
+    'discord': 'https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d80db9971f10a9757c99_Symbol.svg',
+    '4chan': 'https://www.4chan.org/favicon.ico',
+    'quora': 'https://www.quora.com/favicon.ico',
+    'ted': 'https://www.ted.com/favicon.ico'
 };
-
-const checkAllRowsHidden = () => {
-    const allHidden = Array.from(document.querySelectorAll('.button-row:not([data-row="promoted"])'))
-        .every(row => row.classList.contains('hidden'));
-    document.querySelector('.no-rows-message').style.display = allHidden ? 'block' : 'none';
-};
-
-document.getElementById('sort-by-usage').addEventListener('change', function() {
-    settings.sortByUsage = this.checked;
-    saveSettings();
-    sortButtons();
-});
-
-document.getElementById('logo-on-hover').addEventListener('change', function() {
-    settings.logoOnHover = this.checked;
-    document.querySelectorAll('button[data-platform]:not([data-platform^="promoted-"])')
-        .forEach(button => button.classList.toggle('logo-visible', this.checked));
-    saveSettings();
-});
-
-document.getElementById('new-tab').addEventListener('change', function() {
-    settings.newTab = this.checked;
-    saveSettings();
-});
-
-document.getElementById('reset-usage').addEventListener('click', function() {
-    usageCounts = {};
-    localStorage.setItem('buttonUsage', JSON.stringify(usageCounts));
-    this.textContent = window.translations[localStorage.getItem('language') || 'en'].resetVisitedSites || 'Reset visited sites';
-    this.disabled = true;
-});
-
-['general', 'ai', 'buy', 'social', 'forum'].forEach(row => {
-    document.getElementById(`hide-${row}`).addEventListener('change', function() {
-        settings.rows[row] = this.checked;
-        document.querySelector(`.button-row[data-row="${row}"]`).classList.toggle('hidden', !this.checked);
-        saveSettings();
-        checkAllRowsHidden();
-    });
-});
-
-document.querySelectorAll('button[data-platform]').forEach(button => {
-    const platform = button.dataset.platform;
-    const toggle = document.getElementById(`hide-${platform}`);
-    if (toggle && !platform.startsWith('promoted-')) {
-        toggle.checked = settings.buttons[platform];
-        toggle.addEventListener('change', function() {
-            settings.buttons[platform] = this.checked;
-            button.classList.toggle('hidden', !this.checked);
-            saveSettings();
-            sortButtons();
-        });
-    }
-});
-
-applySettings();

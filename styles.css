@@ -1,4 +1,29 @@
-/* Version 3.6 - Centered items in cookie consent */
+/* Version 3.7 - Fixed Bahasa Indonesia button overflow and logo hover text visibility */
+.language-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px; /* Reduced from default to fit longer text */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px; /* Constrain width to fit grid */
+}
+
+.language-btn:hover {
+    background-color: #555;
+}
+
+.logo-hover {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent !important; /* Ensure text is hidden when logo is shown */
+}
 body {
     font-family: Arial, sans-serif;
     text-align: center;

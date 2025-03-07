@@ -1,4 +1,4 @@
-// Version 2.12 - Default icon 🔠 on load, flag only on user selection
+// Version 2.13 - Translated General Settings titles and items
 const translations = {
     en: {
         enterSearch: 'Enter search query',
