@@ -1,4 +1,4 @@
-// Version 2.15 - Improved DOM timing and null checks for cookie consent
+// Version 2.16 - Fixed cookie consent text node issue
 const translations = {
     en: {
         enterSearch: 'Enter search query',
@@ -738,7 +738,11 @@ function updateCookieConsent(translation) {
     if (!cookieConsent) return;
 
     const cookieConsentP = cookieConsent.querySelector('p');
-    if (cookieConsentP && cookieConsentP.childNodes.length > 0) {
+    if (cookieConsentP) {
+        // Ensure there's a text node to modify, create one if missing
+        if (!cookieConsentP.childNodes.length || cookieConsentP.childNodes[0].nodeType !== Node.TEXT_NODE) {
+            cookieConsentP.insertBefore(document.createTextNode(''), cookieConsentP.firstChild);
+        }
         cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
     }
     const learnMoreLink = cookieConsent.querySelector('a');
@@ -863,17 +867,16 @@ function updateLanguage(lang, isUserSelection = false) {
 document.querySelectorAll('.language-btn').forEach(button => {
     button.addEventListener('click', () => {
         const lang = button.dataset.lang;
-        updateLanguage(lang, true); // True indicates user selection
-        document.getElementById('language-modal').style.display = 'none'; // Close modal after selection
+        updateLanguage(lang, true);
+        document.getElementById('language-modal').style.display = 'none';
     });
 });
 
-// Apply language on page load with default icon
 document.addEventListener('DOMContentLoaded', () => {
     const languageIcon = document.getElementById('language-icon');
     if (languageIcon) {
-        languageIcon.textContent = '🔠'; // Set default icon on load
+        languageIcon.textContent = '🔠';
     }
     const savedLang = localStorage.getItem('language') || 'en';
-    updateLanguage(savedLang, false); // False indicates not a user selection
+    updateLanguage(savedLang, false);
 });
