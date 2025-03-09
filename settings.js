@@ -1,4 +1,4 @@
-// Version 1.2 - Added Show logo only toggle and fixed logo-on-hover behavior
+// Version 1.1 - Hide button label when logo-on-hover is enabled
 document.addEventListener('DOMContentLoaded', () => {
     const toggleRow = (checkboxId, rowClass) => {
         const checkbox = document.getElementById(checkboxId);
@@ -84,64 +84,30 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Usage stats reset');
     });
 
-    const logoOnlyCheckbox = document.getElementById('logo-only');
-    const logoHoverCheckbox = document.getElementById('logo-on-hover');
+    const logoCheckbox = document.getElementById('logo-on-hover');
     const buttons = document.querySelectorAll('button[data-platform]');
-
-    // Show logo only (normal state, no text)
-    logoOnlyCheckbox.addEventListener('change', () => {
-        const showLogosOnly = logoOnlyCheckbox.checked;
-        localStorage.setItem('logoOnly', showLogosOnly);
+    logoCheckbox.addEventListener('change', () => {
+        const showLogos = logoCheckbox.checked;
+        localStorage.setItem('logoOnHover', showLogos);
         buttons.forEach(button => {
             const platform = button.dataset.platform;
             const logoUrl = faviconUrls[platform];
             if (logoUrl) {
-                if (showLogosOnly) {
-                    button.style.backgroundImage = `url(${logoUrl})`;
-                    button.style.color = 'transparent';
-                    button.classList.remove('logo-hover');
-                } else if (!logoHoverCheckbox.checked) {
-                    button.style.backgroundImage = 'none';
-                    button.style.color = '';
-                }
+                button.classList.toggle('logo-hover', showLogos);
+                button.style.backgroundImage = showLogos ? `url(${logoUrl})` : 'none';
+                button.style.color = showLogos ? 'transparent' : ''; // Hide text when logo is shown
             }
         });
     });
-    const savedLogoOnlyState = localStorage.getItem('logoOnly') === 'true';
-    logoOnlyCheckbox.checked = savedLogoOnlyState;
-
-    // Show logo on mouse over
-    logoHoverCheckbox.addEventListener('change', () => {
-        const showLogosOnHover = logoHoverCheckbox.checked;
-        localStorage.setItem('logoOnHover', showLogosOnHover);
-        buttons.forEach(button => {
-            const platform = button.dataset.platform;
-            const logoUrl = faviconUrls[platform];
-            if (logoUrl) {
-                button.classList.toggle('logo-hover', showLogosOnHover && !logoOnlyCheckbox.checked);
-                if (!logoOnlyCheckbox.checked) {
-                    button.style.backgroundImage = 'none';
-                    button.style.color = '';
-                }
-            }
-        });
-    });
-    const savedLogoHoverState = localStorage.getItem('logoOnHover') === 'true';
-    logoHoverCheckbox.checked = savedLogoHoverState;
-
-    // Apply initial states
+    const savedLogoState = localStorage.getItem('logoOnHover') === 'true';
+    logoCheckbox.checked = savedLogoState;
     buttons.forEach(button => {
         const platform = button.dataset.platform;
         const logoUrl = faviconUrls[platform];
         if (logoUrl) {
-            if (savedLogoOnlyState) {
-                button.style.backgroundImage = `url(${logoUrl})`;
-                button.style.color = 'transparent';
-            } else if (savedLogoHoverState) {
-                button.classList.add('logo-hover');
-                button.style.backgroundImage = 'none';
-                button.style.color = '';
-            }
+            button.classList.toggle('logo-hover', savedLogoState);
+            button.style.backgroundImage = savedLogoState ? `url(${logoUrl})` : 'none';
+            button.style.color = savedLogoState ? 'transparent' : '';
         }
     });
 

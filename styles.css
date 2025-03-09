@@ -24,6 +24,10 @@
     background-position: center;
     color: transparent !important; /* Ensure text is hidden when logo is shown */
 }
+body[data-theme="dark"] {
+    background-color: #1a1a1a;
+    color: #fff;
+}
 body {
     font-family: Arial, sans-serif;
     text-align: center;
