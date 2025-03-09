@@ -1,5 +1,5 @@
-// Version 2.13 - Translated General Settings titles and items
-const translations = {
+// language-config.js
+export const translations = {
     en: {
         enterSearch: 'Enter search query',
         toggleTheme: 'Toggle Theme',
@@ -717,9 +717,7 @@ const translations = {
     }
 };
 
-window.translations = translations;
-
-const languageFlags = {
+export const languageFlags = {
     en: '🇬🇧',
     es: '🇪🇸',
     hi: '🇮🇳',
@@ -732,107 +730,3 @@ const languageFlags = {
     it: '🇮🇹',
     de: '🇩🇪'
 };
-
-function updateLanguage(lang, isUserSelection = false) {
-    localStorage.setItem('language', lang);
-    const translation = translations[lang] || translations['en'];
-
-    // Update language icon only if it's a user selection
-    const languageIcon = document.getElementById('language-icon');
-    if (languageIcon && isUserSelection) {
-        languageIcon.textContent = languageFlags[lang] || '🔠';
-    }
-
-    // Update search box placeholder
-    document.getElementById('query').placeholder = translation.enterSearch;
-
-    // Update tooltips
-    document.getElementById('theme-icon').dataset.tooltip = translation.toggleTheme;
-    document.getElementById('settings-icon').dataset.tooltip = translation.settings;
-    document.getElementById('bug-icon').dataset.tooltip = translation.reportBug;
-    document.getElementById('suggestion-icon').dataset.tooltip = translation.suggestFeature;
-    document.getElementById('add-site-icon').dataset.tooltip = translation.addSite;
-    document.getElementById('language-icon').dataset.tooltip = translation.language;
-
-    // Update search buttons
-    document.querySelectorAll('button[data-platform]').forEach(button => {
-        const platform = button.dataset.platform;
-        if (!platform.startsWith('promoted-') && translation[platform]) {
-            button.textContent = translation[platform];
-        }
-    });
-
-    // Update row labels
-    document.querySelectorAll('.button-row label').forEach(label => {
-        const row = label.parentElement.dataset.row;
-        if (translation[row]) {
-            label.textContent = translation[row];
-        }
-    });
-
-    // Update modal titles
-    document.querySelector('#bug-modal h4').textContent = translation.reportABug;
-    document.querySelector('#suggestion-modal h4').textContent = translation.suggestAFeature;
-    document.querySelector('#add-site-modal h4').textContent = translation.addASite;
-    document.querySelector('#promote-modal h4').textContent = translation.promoteYourSite;
-    document.querySelector('#language-modal h4').textContent = translation.language;
-
-    // Update modal placeholders and buttons
-    document.getElementById('bug-message').placeholder = translation.describeBug;
-    document.getElementById('suggestion-message').placeholder = translation.yourSuggestion;
-    document.getElementById('add-site-input').placeholder = translation.siteUrl;
-    document.getElementById('promote-message').placeholder = translation.promoteMessage;
-    document.getElementById('submit-bug').textContent = translation.submit;
-    document.getElementById('submit-suggestion').textContent = translation.submit;
-    document.getElementById('submit-add-site').textContent = translation.submit;
-    document.getElementById('submit-promote').textContent = translation.submit;
-
-    // Update settings modal
-    document.querySelector('#settings-modal .modal-section:first-child h4').textContent = translation.generalSettings;
-    document.querySelector('#sort-by-usage').nextSibling.nextSibling.textContent = translation.mostVisitedSitesFirst;
-    document.getElementById('reset-usage').textContent = translation.resetVisitedSites;
-    document.querySelector('#logo-on-hover').nextSibling.nextSibling.textContent = translation.showLogoOnMouseOver;
-    document.querySelector('#new-tab').nextSibling.nextSibling.textContent = translation.openResultsInNewTab;
-    document.querySelector('#settings-modal .modal-section:nth-child(2) h4').textContent = translation.rows;
-    document.querySelector('#settings-modal .modal-section:nth-child(3) h4').textContent = translation.sites;
-
-    // Update row toggles in settings modal
-    document.querySelector('#hide-general').nextSibling.nextSibling.textContent = translation.general;
-    document.querySelector('#hide-ai').nextSibling.nextSibling.textContent = translation.ai;
-    document.querySelector('#hide-buy').nextSibling.nextSibling.textContent = translation.buy;
-    document.querySelector('#hide-social').nextSibling.nextSibling.textContent = translation.social;
-    document.querySelector('#hide-forum').nextSibling.nextSibling.textContent = translation.forum;
-
-    // Update sites section in settings modal
-    document.querySelectorAll('#settings-modal .sites-column h5').forEach((h5, index) => {
-        const sections = ['general', 'ai', 'buy', 'social', 'forum'];
-        h5.textContent = translation[sections[index]];
-    });
-
-    // Update cookie consent with null check
-    const cookieConsentP = document.querySelector('.cookie-consent p');
-    if (cookieConsentP) {
-        cookieConsentP.childNodes[0].textContent = translation.cookieText + ' ';
-        document.querySelector('.cookie-consent a').textContent = translation.learnMore;
-        document.getElementById('accept-cookies').textContent = translation.accept;
-        document.getElementById('decline-cookies').textContent = translation.decline;
-    }
-}
-
-document.querySelectorAll('.language-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const lang = button.dataset.lang;
-        updateLanguage(lang, true); // True indicates user selection
-        document.getElementById('language-modal').style.display = 'none'; // Close modal after selection
-    });
-});
-
-// Apply language on page load with default icon
-document.addEventListener('DOMContentLoaded', () => {
-    const languageIcon = document.getElementById('language-icon');
-    if (languageIcon) {
-        languageIcon.textContent = '🔠'; // Set default icon on load
-    }
-    const savedLang = localStorage.getItem('language') || 'en';
-    updateLanguage(savedLang, false); // False indicates not a user selection
-});
